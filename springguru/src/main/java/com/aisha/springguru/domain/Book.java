@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 @Entity
@@ -22,6 +23,9 @@ public class Book {
 	
 	private String title;
 	private String isbn;
+	
+	@ManyToOne
+	private Publisher publisher;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="author_book" , joinColumns = @JoinColumn(name="book_id"),
@@ -84,12 +88,18 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", isbn=" + isbn + ", authors=" + authors + "]";
+		return "Book [id=" + id + ", title=" + title + ", isbn=" + isbn + "]";
 	}
 	public Book(String title, String isbn) {
 		super();
 		this.title = title;
 		this.isbn = isbn;
+	}
+	public Publisher getPublisher() {
+		return publisher;
+	}
+	public void setPublisher(Publisher publisher) {
+		this.publisher = publisher;
 	}
 	 
 
